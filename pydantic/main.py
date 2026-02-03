@@ -14,13 +14,17 @@ class Event(BaseModel):
 # ダミーデータ（外部からのイベントデータのつもり）
 external_data = {
     "name": " FastAPI勉強会",
-    "start_datetime": "2026-02-03 22:25",
+    "start_datetime": "abc",
+    # "start_datetime": "2026-02-03 22:25",
     "participants": ["Alice", "Bob", "Charlie"]
 }
 
 # 辞書のアンパック
 # **は辞書のキーと値をクラスの引数に展開する
-event = Event(**external_data)
-print("イベント名：", event.name, type(event.name))
-print("開催日時：", event.start_datetime, type(event.start_datetime))
-print("参加者：", event.participants, type(event.participants))
+try:
+    event = Event(**external_data)
+    print("イベント名：", event.name, type(event.name))
+    print("開催日時：", event.start_datetime, type(event.start_datetime))
+    print("参加者：", event.participants, type(event.participants))
+except ValidationError as e:
+    print(e.json())
